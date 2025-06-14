@@ -75,4 +75,25 @@ class GuruController extends Controller
 
         return back()->with('success', 'Data guru berhasil dihapus');
     }
+
+    public function batalTolak(Guru $guru)
+{
+    $guru->update([
+        'status' => 'menunggu',
+        'alasan_penolakan' => null
+    ]);
+
+    return back()->with('success', 'Status guru berhasil dikembalikan ke menunggu');
+}
+
+public function batalTerima(Guru $guru)
+{
+    $guru->update([
+        'status' => 'menunggu',
+        'disetujui_oleh' => null,
+        'disetujui_pada' => null
+    ]);
+
+    return back()->with('success', 'Status guru berhasil dikembalikan ke menunggu');
+}
 }

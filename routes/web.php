@@ -38,6 +38,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/guru/{guru}/diterima', [GuruController::class, 'diterima'])->name('admin.guru.diterima');
     Route::post('/guru/{guru}/ditolak', [GuruController::class, 'ditolak'])->name('admin.guru.ditolak');
     Route::delete('/guru/{guru}', [GuruController::class, 'destroy'])->name('admin.guru.destroy');
+    Route::patch('/guru/{guru}/batal-tolak', [GuruController::class, 'batalTolak'])->name('admin.guru.batal-tolak');
+    Route::patch('/guru/{guru}/batal-terima', [GuruController::class, 'batalTerima'])->name('admin.guru.batal-terima');
 });
 
 // Siswa Routes
