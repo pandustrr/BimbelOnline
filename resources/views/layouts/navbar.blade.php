@@ -2,30 +2,33 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
 
-            <!-- Logo -->
-            <div class="flex items-center">
-                <a href="{{ Auth::guard('admin')->check() ? route('admin.dashboard') : '/' }}" class="flex items-center">
-                    <svg class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    <span class="ml-2 text-xl font-bold text-gray-900">Bimbel Online</span>
-                </a>
-            </div>
+            <a href="{{ Auth::guard('admin')->check() ? route('admin.dashboard') : '/' }}" class="flex items-center">
+                <svg class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <span class="ml-2 text-xl font-bold text-gray-900">Bimbel Online</span>
+            </a>
 
-            <!-- MENU UTAMA -->
+            <!-- Menu Utama -->
             <div class="flex items-center space-x-4">
 
                 {{-- ADMIN --}}
                 @auth('admin')
-                    <a href="{{ route('admin.dashboard') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('admin.dashboard') ? 'text-indigo-600 font-semibold' : '' }}">
-                        Dashboard
-                    </a>
-                    <a href="{{ route('admin.guru.index') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('admin.guru.index') ? 'text-indigo-600 font-semibold' : '' }}">
-                        Kelola Guru
-                    </a>
+                    @php
+                        $adminRoutes = [
+                            'admin.guru.index' => 'Kelola Guru',
+                            'admin.jadwal.index' => 'Kelola Jadwal Guru',
+                            'admin.siswa.index' => 'Kelola Siswa',
+                        ];
+                    @endphp
+
+                    @foreach ($adminRoutes as $route => $label)
+                        <a href="{{ route($route) }}"
+                            class="px-3 py-2 text-sm font-medium {{ request()->routeIs($route) ? 'text-indigo-600 font-semibold' : 'text-gray-700 hover:text-indigo-600' }}">
+                            {{ $label }}
+                        </a>
+                    @endforeach
 
                     <!-- Dropdown Admin -->
                     <div x-data="{ open: false }" class="relative">
@@ -50,20 +53,19 @@
 
                     {{-- GURU --}}
                 @elseif(auth()->guard('guru')->check())
-
                     <a href="{{ route('guru.jadwal') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('guru.jadwal*') ? 'text-indigo-600 font-semibold' : '' }}">
+                        class="px-3 py-2 text-sm font-medium {{ request()->routeIs('guru.jadwal*') ? 'text-indigo-600 font-semibold' : 'text-gray-700 hover:text-indigo-600' }}">
                         <i class="fas fa-calendar-alt mr-1"></i> Jadwal Mengajar
                     </a>
 
                     <a href="{{ route('guru.profile') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('guru.profile*') ? 'text-indigo-600 font-semibold' : '' }}">
-                        <i class="fas fa-user mr-1"></i> Profile Saya
+                        class="px-3 py-2 text-sm font-medium {{ request()->routeIs('guru.profile*') ? 'text-indigo-600 font-semibold' : 'text-gray-700 hover:text-indigo-600' }}">
+                        <i class="fas fa-user mr-1"></i> Profil Saya
                     </a>
 
-                    <!-- Dropdown Guru -->
+                    <!-- Dropdown -->
                     <div x-data="{ open: false }" class="relative">
-                        <button @click="open = !open" class="flex items-center space-x-2 focus:outline-none">
+                        <button @click="open = !open" class="flex items-center space-x-2">
                             <img src="{{ Auth::guard('guru')->user()->foto_url }}" alt="Foto Profil"
                                 class="h-8 w-8 rounded-full object-cover border border-gray-200">
                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,18 +90,17 @@
 
                     {{-- SISWA --}}
                 @elseif(auth()->guard('siswa')->check())
-
                     <a href="{{ route('siswa.profile') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('siswa.profile') ? 'text-indigo-600 font-semibold' : '' }}">
+                        class="px-3 py-2 text-sm font-medium {{ request()->routeIs('siswa.profile') ? 'text-indigo-600 font-semibold' : 'text-gray-700 hover:text-indigo-600' }}">
                         Profile
                     </a>
                     <a href="{{ route('siswa.pendaftaran') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('siswa.pendaftaran*') ? 'text-indigo-600 font-semibold' : '' }}">
+                        class="px-3 py-2 text-sm font-medium {{ request()->routeIs('siswa.pendaftaran*') ? 'text-indigo-600 font-semibold' : 'text-gray-700 hover:text-indigo-600' }}">
                         <i class="fas fa-search mr-1"></i> Cari Guru
                     </a>
                     <a href="{{ route('siswa.kelas-saya') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('siswa.pendaftaran*') ? 'text-indigo-600 font-semibold' : '' }}">
-                        <i class="fas fa-search mr-1"></i> Kelas Saya
+                        class="px-3 py-2 text-sm font-medium {{ request()->routeIs('siswa.kelas-saya') ? 'text-indigo-600 font-semibold' : 'text-gray-700 hover:text-indigo-600' }}">
+                        <i class="fas fa-book mr-1"></i> Kelas Saya
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -113,6 +114,8 @@
                     <a href="/login" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">
                         Masuk
                     </a>
+
+                    <!-- Dropdown Daftar -->
                     <div x-data="{ open: false }" class="relative">
                         <button @click="open = !open"
                             class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 flex items-center">
@@ -132,6 +135,7 @@
                         </div>
                     </div>
                 @endauth
+
             </div>
         </div>
     </div>

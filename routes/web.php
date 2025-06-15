@@ -8,9 +8,11 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Guru\GuruProfileController;
 use App\Http\Controllers\Guru\GuruJadwalController;
+use App\Http\Controllers\Admin\AdminJadwalController;
 use App\Http\Controllers\Siswa\SiswaProfileController;
 use App\Http\Controllers\Siswa\SiswaPendaftaranController;
 use App\Http\Controllers\Siswa\KelasSayaController;
+use App\Http\Controllers\Admin\AdminSiswaController;
 
 // Halaman utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -41,6 +43,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::delete('/guru/{guru}', [GuruController::class, 'destroy'])->name('guru.destroy');
     Route::patch('/guru/{guru}/batal-tolak', [GuruController::class, 'batalTolak'])->name('guru.batal-tolak');
     Route::patch('/guru/{guru}/batal-terima', [GuruController::class, 'batalTerima'])->name('guru.batal-terima');
+
+    // Kelola Jadwal
+    Route::resource('jadwal', AdminJadwalController::class)->except(['show']);
+        // Kelola Siswa
+    Route::resource('siswa', AdminSiswaController::class)->only(['index', 'show', 'destroy']);
 });
 
 // Siswa Routes
@@ -79,5 +86,5 @@ Route::prefix('guru')->name('guru.')->middleware('auth:guru')->group(function ()
     Route::get('/jadwal/{jadwal}/edit', [GuruJadwalController::class, 'edit'])->name('jadwal.edit');
     Route::put('/jadwal/{jadwal}', [GuruJadwalController::class, 'update'])->name('jadwal.update');
     Route::delete('/jadwal/{jadwal}', [GuruJadwalController::class, 'destroy'])->name('jadwal.destroy');
-    // Route::get('/jadwal/{jadwal}/detail-siswa', [GuruJadwalController::class, 'detailSiswa'])->name('jadwal-detail-siswa');
+    Route::get('/jadwal/{jadwal}/siswa', [GuruJadwalController::class, 'detailSiswa'])->name('jadwal-detail-siswa');
 });

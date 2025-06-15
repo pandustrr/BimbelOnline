@@ -32,4 +32,5 @@ class Jadwal extends Model
             ->withPivot('status', 'tanggal_daftar')
             ->withTimestamps();
     }
+    
 }

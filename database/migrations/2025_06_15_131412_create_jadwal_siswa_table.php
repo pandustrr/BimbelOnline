@@ -15,8 +15,7 @@ return new class extends Migration
             $table->enum('status', ['aktif', 'selesai', 'batal'])->default('aktif');
             $table->date('tanggal_daftar');
             $table->timestamps();
-
-            $table->unique(['siswa_id', 'jadwal_id']); 
+            $table->unique(['siswa_id', 'jadwal_id']);
         });
     }
 

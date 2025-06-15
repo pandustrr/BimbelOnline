@@ -134,4 +134,5 @@ class Guru extends Authenticatable
     {
         return $this->hasMany(Jadwal::class);
     }
+    
 }

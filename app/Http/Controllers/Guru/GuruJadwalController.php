@@ -105,10 +105,10 @@ class GuruJadwalController extends Controller
             ->with('success', 'Jadwal berhasil dihapus!');
     }
 
-    // public function detailSiswa($id)
-    // {
-    //     $jadwal = Jadwal::with('siswa')->findOrFail($id);
+    public function detailSiswa($id)
+    {
+        $jadwal = Jadwal::with('siswa')->findOrFail($id);
 
-    //     return view('guru.jadwal-detail-siswa', compact('jadwal'));
-    // }
+        return view('guru.jadwal-detail-siswa', compact('jadwal'));
+    }
 }
