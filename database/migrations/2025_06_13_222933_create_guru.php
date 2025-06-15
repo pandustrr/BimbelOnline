@@ -17,18 +17,16 @@ return new class extends Migration
             $table->string('no_hp', 20);
             $table->text('riwayat_pendidikan');
             $table->text('alamat');
-            $table->string('foto', 255)->nullable()->comment('Path/lokasi file foto profil');
-            $table->string('cv', 255)->nullable()->comment('Path/lokasi file CV');
-            $table->enum('jenjang', ['SD', 'SMP', 'SMA'])->nullable()->comment('Jenjang pendidikan yang diajar');
-            $table->string('mata_pelajaran', 100)->nullable()->comment('Mata pelajaran yang diajar');
+            $table->string('foto', 255)->nullable();
+            $table->string('cv', 255)->nullable();
+            $table->enum('jenjang', ['SD', 'SMP', 'SMA'])->nullable();
+            $table->string('mata_pelajaran', 100)->nullable();
             $table->enum('status', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
             $table->text('alasan_penolakan')->nullable();
-            $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });
 
-        // Tambahkan index untuk kolom yang sering di-query
         Schema::table('guru', function (Blueprint $table) {
             $table->index('status');
             $table->index('created_at');

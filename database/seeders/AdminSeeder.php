@@ -11,7 +11,7 @@ class AdminSeeder extends Seeder
         Admin::create([
             'nama' => 'Admin Bimbel',
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('password123'),
+            'password' => 'password123',
         ]);
     }
 }

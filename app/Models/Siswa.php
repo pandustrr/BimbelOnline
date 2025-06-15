@@ -10,8 +10,8 @@ class Siswa extends Authenticatable
 
     protected $fillable = [
         'nama_siswa', 'username', 'email', 'password',
-        'no_hp', 'kelas', 'asal_sekolah', 'alamat'
+        'no_hp', 'jenjang', 'kelas', 'asal_sekolah', 'alamat'
     ];
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password'];
 }

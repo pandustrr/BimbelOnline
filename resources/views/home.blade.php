@@ -30,8 +30,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-center text-gray-900 mb-2">1000+</h3>
                     <p class="text-gray-600 text-center">Siswa Terdaftar</p>
+                    <h3 class="text-2xl font-bold text-center text-gray-900 mb-2">{{ $siswa_count }}+</h3>
+
                     <div class="mt-4 text-center">
                         <a href="/register/siswa" class="text-blue-600 hover:text-blue-700 font-medium">Daftar Sekarang →</a>
                     </div>
@@ -44,7 +45,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-center text-gray-900 mb-2">50+</h3>
+                    <h3 class="text-2xl font-bold text-center text-gray-900 mb-2">{{ $guru_count }}+</h3>
                     <p class="text-gray-600 text-center">Tutor Profesional</p>
                     <div class="mt-4 text-center">
                         <a href="/tutors" class="text-green-600 hover:text-green-700 font-medium">Lihat Tutor →</a>
@@ -71,32 +72,52 @@
 
         <!-- Card Informasi Tutor -->
         <div class="max-w-7xl mx-auto px-4 pb-16">
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Tutor Kami</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                @foreach([1,2,3,4] as $tutor)
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                    <img src="https://randomuser.me/api/portraits/{{ $tutor % 2 == 0 ? 'women' : 'men' }}/{{ $tutor * 10 }}.jpg"
-                         alt="Tutor {{ $tutor }}"
-                         class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg text-gray-900">Tutor {{ $tutor % 2 == 0 ? 'Perempuan' : 'Pria' }} {{ $tutor }}</h3>
-                        <p class="text-gray-600">Spesialis Matematika</p>
-                        <div class="mt-2 flex">
-                            @for($i = 0; $i < 5; $i++)
-                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Tutor Profesional Kami</h2>
+
+            @if($tutors->isEmpty())
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-md mb-8">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
                             </svg>
-                            @endfor
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-blue-700">Belum ada tutor yang tersedia</p>
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
-            <div class="mt-8 text-center">
-                <a href="/tutors" class="inline-block px-6 py-2 border-2 border-indigo-600 text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition duration-300">
-                    Lihat Semua Tutor
-                </a>
-            </div>
+            @else
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    @foreach($tutors as $tutor)
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                        <div class="h-48 bg-gray-100 flex items-center justify-center">
+                            @if($tutor->foto)
+                                <img src="{{ $tutor->foto_url }}"
+                                     alt="{{ $tutor->nama_guru }}"
+                                     class="w-full h-full object-cover">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center bg-indigo-100 text-indigo-800 text-4xl font-bold">
+                                    {{ substr($tutor->nama_guru, 0, 1) }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg text-gray-900">{{ $tutor->nama_guru }}</h3>
+                            <p class="text-gray-600">{{ $tutor->mata_pelajaran }}</p>
+                            <p class="text-sm text-gray-500 mt-1">{{ $tutor->jenjang_text }}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                @if($tutors->count() > 8)
+                    <div class="mt-8 text-center">
+                        <a href="/tutors" class="inline-block px-6 py-2 border-2 border-indigo-600 text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition duration-300">
+                            Lihat Semua Tutor
+                        </a>
+                    </div>
+                @endif
+            @endif
         </div>
     </div>
 </div>

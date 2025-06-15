@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('no_hp');
+            $table->enum('jenjang', ['SD', 'SMP', 'SMA']); 
             $table->string('kelas');
             $table->string('asal_sekolah');
             $table->text('alamat');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

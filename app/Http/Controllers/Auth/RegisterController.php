@@ -6,11 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Siswa;
 use App\Models\Guru;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    // Register Siswa
     public function showSiswaRegisterForm()
     {
         return view('auth.register_siswa');
@@ -18,32 +16,32 @@ class RegisterController extends Controller
 
     public function registerSiswa(Request $request)
     {
-        $request->validate([
-            'nama_siswa' => 'required',
-            'username' => 'required|unique:siswa',
-            'email' => 'required|email|unique:siswa',
-            'password' => 'required|confirmed',
-            'no_hp' => 'required',
-            'kelas' => 'required',
-            'asal_sekolah' => 'required',
-            'alamat' => 'required',
+        $validatedData = $request->validate([
+            'nama_siswa' => 'required|string|max:255',
+            'username' => 'required|string|max:50|unique:siswa',
+            'email' => 'required|string|email|max:255|unique:siswa',
+            'password' => 'required|string|min:8|confirmed',
+            'no_hp' => 'required|string|max:15',
+            'jenjang' => 'required|in:SD,SMP,SMA',
+            'kelas' => 'required|string|max:50',
+            'asal_sekolah' => 'required|string|max:255',
+            'alamat' => 'required|string',
         ]);
 
         Siswa::create([
-            'nama_siswa' => $request->nama_siswa,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'no_hp' => $request->no_hp,
-            'kelas' => $request->kelas,
-            'asal_sekolah' => $request->asal_sekolah,
-            'alamat' => $request->alamat,
+            'nama_siswa' => $validatedData['nama_siswa'],
+            'username' => $validatedData['username'],
+            'email' => $validatedData['email'],
+            'password' => $validatedData['password'],
+            'no_hp' => $validatedData['no_hp'],
+            'jenjang' => $validatedData['jenjang'],
+            'kelas' => $validatedData['kelas'],
+            'asal_sekolah' => $validatedData['asal_sekolah'],
+            'alamat' => $validatedData['alamat'],
         ]);
-
-        return redirect('/login')->with('success', 'Registrasi berhasil! Silakan login.');
+        return redirect()->route('register.siswa')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
-    // Register Guru
     public function showGuruRegisterForm()
     {
         return view('auth.register_guru');
@@ -72,7 +70,7 @@ class RegisterController extends Controller
             'nama_guru' => $request->nama_guru,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => $request->password    ,
+            'password' => $request->password,
             'no_hp' => $request->no_hp,
             'riwayat_pendidikan' => $request->riwayat_pendidikan,
             'alamat' => $request->alamat,
