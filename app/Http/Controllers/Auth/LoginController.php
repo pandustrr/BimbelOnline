@@ -31,7 +31,7 @@ class LoginController extends Controller
         $siswa = \App\Models\Siswa::where('email', $credentials['email'])->first();
         if ($siswa && $siswa->password === $credentials['password']) {
             Auth::guard('siswa')->login($siswa);
-            return redirect()->route('siswa.dashboard');
+            return redirect()->route('siswa.profile');
         }
 
         // Login Guru
@@ -39,7 +39,7 @@ class LoginController extends Controller
         if ($guru && $guru->password === $credentials['password']) {
             if ($guru->status === 'diterima') {
                 Auth::guard('guru')->login($guru);
-                return redirect()->route('guru.dashboard');
+                return redirect()->route('guru.profile');
             } elseif ($guru->status === 'menunggu') {
                 return back()->withErrors(['email' => 'Akun Anda masih menunggu persetujuan admin']);
             } elseif ($guru->status === 'ditolak') {

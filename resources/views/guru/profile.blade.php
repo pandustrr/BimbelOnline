@@ -59,7 +59,44 @@
 
                 <!-- Main Content -->
                 <div class="lg:col-span-2 space-y-6">
-                    <!-- Spesialisasi Mengajar -->
+
+                    <!-- Riwayat Pendidikan -->
+                    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
+                        <div class="flex items-center mb-6">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mr-4">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Riwayat Pendidikan</h3>
+                        </div>
+                        <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 border">
+                            <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ $guru->riwayat_pendidikan }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Alamat -->
+                    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
+                        <div class="flex items-center mb-6">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Alamat</h3>
+                        </div>
+                        <div class="bg-gradient-to-r from-gray-50 to-orange-50 rounded-xl p-4 border">
+                            <p class="text-gray-700 leading-relaxed">{{ $guru->alamat }}</p>
+                        </div>
+                    </div>
+
+                                        <!-- Spesialisasi Mengajar -->
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
                         <div class="flex items-center mb-6">
                             <div
@@ -103,41 +140,6 @@
                         </div>
                     </div>
 
-                    <!-- Riwayat Pendidikan -->
-                    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
-                        <div class="flex items-center mb-6">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mr-4">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-900">Riwayat Pendidikan</h3>
-                        </div>
-                        <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 border">
-                            <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ $guru->riwayat_pendidikan }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Alamat -->
-                    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
-                        <div class="flex items-center mb-6">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center mr-4">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-900">Alamat</h3>
-                        </div>
-                        <div class="bg-gradient-to-r from-gray-50 to-orange-50 rounded-xl p-4 border">
-                            <p class="text-gray-700 leading-relaxed">{{ $guru->alamat }}</p>
-                        </div>
-                    </div>
 
                     <!-- Dokumen & Actions -->
                     <div

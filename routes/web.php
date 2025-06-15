@@ -5,11 +5,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Guru\DashboardController as GuruDashboardController;
-use App\Http\Controllers\Siswa\DashboardController as SiswaDashboardController;
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Guru\GuruProfileController;
+use App\Http\Controllers\Guru\GuruJadwalController;
 use App\Http\Controllers\Siswa\SiswaProfileController;
+use App\Http\Controllers\Siswa\SiswaPendaftaranController;
+use App\Http\Controllers\Siswa\KelasSayaController;
 
 // Halaman utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -44,18 +45,39 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
 // Siswa Routes
 Route::prefix('siswa')->name('siswa.')->middleware('auth:siswa')->group(function () {
-    Route::get('/dashboard', [SiswaDashboardController::class, 'index'])->name('dashboard');
 
+    // Profil
     Route::get('/profile', [SiswaProfileController::class, 'show'])->name('profile');
     Route::get('/profile/edit', [SiswaProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [SiswaProfileController::class, 'update'])->name('profile.update');
+
+    // Pendaftaran Kelas
+    Route::get('/pendaftaran', [SiswaPendaftaranController::class, 'index'])->name('pendaftaran');
+    Route::get('/pendaftaran/{guru}', [SiswaPendaftaranController::class, 'show'])->name('pendaftaran.show');
+    Route::post('/pendaftaran/{jadwal}/daftar', [SiswaPendaftaranController::class, 'daftar'])->name('pendaftaran.daftar');
+
+    // Kelas Saya
+    Route::get('/kelas-saya', [KelasSayaController::class, 'index'])->name('kelas-saya');
+    Route::put('/kelas-saya/{jadwal}/batal', [KelasSayaController::class, 'batal'])->name('kelas-saya.batal');
+    Route::get('/kelas-saya/{jadwal}/detail', [KelasSayaController::class, 'detail'])->name('kelas-saya.detail');
+    Route::put('/kelas-saya/{jadwal}/aktifkan-kembali', [KelasSayaController::class, 'aktifkanKembali'])->name('siswa.kelas-saya.kembali-aktif');
+    Route::delete('/kelas-saya/{jadwal}/hapus', [KelasSayaController::class, 'destroy'])->name('kelas-saya.hapus');
 });
 
 // Guru Routes
 Route::prefix('guru')->name('guru.')->middleware('auth:guru')->group(function () {
-    Route::get('/dashboard', [GuruDashboardController::class, 'index'])->name('dashboard');
 
+    // Profile Routes
     Route::get('/profile', [GuruProfileController::class, 'show'])->name('profile');
     Route::get('/profile/edit', [GuruProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [GuruProfileController::class, 'update'])->name('profile.update');
+
+    // Jadwal Routes
+    Route::get('/jadwal', [GuruJadwalController::class, 'index'])->name('jadwal');
+    Route::get('/jadwal/create', [GuruJadwalController::class, 'create'])->name('jadwal.create');
+    Route::post('/jadwal', [GuruJadwalController::class, 'store'])->name('jadwal.store');
+    Route::get('/jadwal/{jadwal}/edit', [GuruJadwalController::class, 'edit'])->name('jadwal.edit');
+    Route::put('/jadwal/{jadwal}', [GuruJadwalController::class, 'update'])->name('jadwal.update');
+    Route::delete('/jadwal/{jadwal}', [GuruJadwalController::class, 'destroy'])->name('jadwal.destroy');
+    // Route::get('/jadwal/{jadwal}/detail-siswa', [GuruJadwalController::class, 'detailSiswa'])->name('jadwal-detail-siswa');
 });

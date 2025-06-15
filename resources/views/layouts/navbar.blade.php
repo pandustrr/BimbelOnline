@@ -33,8 +33,7 @@
                             class="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">
                             <span>{{ Auth::guard('admin')->user()->nama }}</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
                         <div x-show="open" @click.away="open = false" x-transition
@@ -49,14 +48,16 @@
                         </div>
                     </div>
 
-                {{-- GURU --}}
+                    {{-- GURU --}}
                 @elseif(auth()->guard('guru')->check())
-                    <a href="{{ route('guru.dashboard') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('guru.dashboard') ? 'text-indigo-600 font-semibold' : '' }}">
-                        Dashboard
+
+                    <a href="{{ route('guru.jadwal') }}"
+                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('guru.jadwal*') ? 'text-indigo-600 font-semibold' : '' }}">
+                        <i class="fas fa-calendar-alt mr-1"></i> Jadwal Mengajar
                     </a>
+
                     <a href="{{ route('guru.profile') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('guru.profile') ? 'text-indigo-600 font-semibold' : '' }}">
+                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('guru.profile*') ? 'text-indigo-600 font-semibold' : '' }}">
                         <i class="fas fa-user mr-1"></i> Profile Saya
                     </a>
 
@@ -66,12 +67,15 @@
                             <img src="{{ Auth::guard('guru')->user()->foto_url }}" alt="Foto Profil"
                                 class="h-8 w-8 rounded-full object-cover border border-gray-200">
                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
                         <div x-show="open" @click.away="open = false" x-transition
                             class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-100">
+                            <a href="{{ route('guru.profile') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-user mr-2"></i> Profil
+                            </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
@@ -82,28 +86,31 @@
                         </div>
                     </div>
 
-                {{-- SISWA --}}
+                    {{-- SISWA --}}
                 @elseif(auth()->guard('siswa')->check())
-                    <a href="{{ route('siswa.dashboard') }}"
-                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('siswa.dashboard') ? 'text-indigo-600 font-semibold' : '' }}">
-                        Dashboard
-                    </a>
+
                     <a href="{{ route('siswa.profile') }}"
                         class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('siswa.profile') ? 'text-indigo-600 font-semibold' : '' }}">
                         Profile
                     </a>
+                    <a href="{{ route('siswa.pendaftaran') }}"
+                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('siswa.pendaftaran*') ? 'text-indigo-600 font-semibold' : '' }}">
+                        <i class="fas fa-search mr-1"></i> Cari Guru
+                    </a>
+                    <a href="{{ route('siswa.kelas-saya') }}"
+                        class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 {{ request()->routeIs('siswa.pendaftaran*') ? 'text-indigo-600 font-semibold' : '' }}">
+                        <i class="fas fa-search mr-1"></i> Kelas Saya
+                    </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit"
-                            class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">
+                        <button type="submit" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">
                             Logout
                         </button>
                     </form>
 
-                {{-- GUEST --}}
+                    {{-- GUEST --}}
                 @else
-                    <a href="/login"
-                        class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">
+                    <a href="/login" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">
                         Masuk
                     </a>
                     <div x-data="{ open: false }" class="relative">

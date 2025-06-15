@@ -47,6 +47,22 @@ class Guru extends Authenticatable
         'jenjang_text'
     ];
 
+    public function jadwalTersedia()
+    {
+        return $this->hasMany(Jadwal::class)
+            ->whereColumn('terdaftar', '<', 'kuota')
+            ->orderBy('hari')
+            ->orderBy('jam_mulai');
+    }
+
+    public function jadwalPenuh()
+    {
+        return $this->hasMany(Jadwal::class)
+            ->whereColumn('terdaftar', '>=', 'kuota')
+            ->orderBy('hari')
+            ->orderBy('jam_mulai');
+    }
+
     // Scope untuk filter status
     public function scopeMenunggu($query)
     {
@@ -112,5 +128,10 @@ class Guru extends Authenticatable
         ];
 
         return $statuses[$this->status] ?? $this->status;
+    }
+
+    public function jadwal()
+    {
+        return $this->hasMany(Jadwal::class);
     }
 }
