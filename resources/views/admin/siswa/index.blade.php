@@ -8,14 +8,11 @@
             <div class="bg-white shadow-md sm:rounded-lg overflow-hidden">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <!-- Header -->
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold text-gray-800">Kelola Siswa</h2>
                     </div>
 
-                    <!-- Statistik -->
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-                        <!-- Total Siswa -->
                         <div class="bg-blue-50 p-4 rounded-lg shadow">
                             <div class="flex items-center">
                                 <div
@@ -33,7 +30,6 @@
                             </div>
                         </div>
 
-                        <!-- Siswa Aktif -->
                         <div class="bg-green-50 p-4 rounded-lg shadow">
                             <div class="flex items-center">
                                 <div
@@ -50,7 +46,6 @@
                             </div>
                         </div>
 
-                        <!-- Jenjang SD -->
                         <div class="bg-yellow-50 p-4 rounded-lg shadow">
                             <div class="flex items-center">
                                 <div
@@ -68,7 +63,6 @@
                             </div>
                         </div>
 
-                        <!-- Jenjang SMP -->
                         <div class="bg-purple-50 p-4 rounded-lg shadow">
                             <div class="flex items-center">
                                 <div
@@ -86,7 +80,6 @@
                             </div>
                         </div>
 
-                        <!-- Jenjang SMA -->
                         <div class="bg-red-50 p-4 rounded-lg shadow">
                             <div class="flex items-center">
                                 <div
@@ -104,7 +97,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Tabel Siswa -->
+
                     <div class="bg-white shadow-md rounded-lg overflow-hidden">
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">

@@ -20,7 +20,6 @@
                     @method('PUT')
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Kolom Kiri -->
                         <div>
                             <div class="mb-6">
                                 <label for="nama_siswa" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
@@ -63,7 +62,6 @@
                             </div>
                         </div>
 
-                        <!-- Kolom Kanan -->
                         <div>
                             <div class="mb-6">
                                 <label for="jenjang" class="block text-sm font-medium text-gray-700 mb-1">Jenjang Pendidikan</label>
@@ -82,7 +80,6 @@
                                 <label for="kelas" class="block text-sm font-medium text-gray-700 mb-1">Kelas</label>
                                 <select id="kelas" name="kelas"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                    <!-- Opsi kelas akan diisi oleh JavaScript berdasarkan jenjang -->
                                 </select>
                                 @error('kelas')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -110,7 +107,6 @@
                         </div>
                     </div>
 
-                    <!-- Bagian Password -->
                     <div class="border-t border-gray-200 pt-6 mt-6">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">Ubah Password</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -157,7 +153,6 @@
             const jenjang = this.value;
             const kelasSelect = document.getElementById('kelas');
 
-            // Kosongkan opsi kelas
             kelasSelect.innerHTML = '';
 
             if (jenjang === 'SD') {
@@ -187,12 +182,10 @@
             }
         });
 
-        // Trigger change event saat pertama kali load
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('jenjang').dispatchEvent(new Event('change'));
         });
 
-        // Form submission handler
         document.getElementById('profileForm').addEventListener('submit', function() {
             const submitBtn = this.querySelector('button[type="submit"]');
             if (submitBtn) {

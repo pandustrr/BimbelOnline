@@ -3,9 +3,8 @@
 @section('title', 'Profile Guru')
 
 @section('content')
-    <div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8">
+    <div class="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-50 py-8">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header Section -->
             <div class="mb-8">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div>
@@ -23,7 +22,6 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Profile Card -->
                 <div class="lg:col-span-1">
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden text-center p-6">
                         <div class="flex justify-center mb-4">
@@ -57,10 +55,8 @@
                     </div>
                 </div>
 
-                <!-- Main Content -->
                 <div class="lg:col-span-2 space-y-6">
 
-                    <!-- Riwayat Pendidikan -->
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
                         <div class="flex items-center mb-6">
                             <div
@@ -77,7 +73,6 @@
                         </div>
                     </div>
 
-                    <!-- Alamat -->
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
                         <div class="flex items-center mb-6">
                             <div
@@ -96,7 +91,6 @@
                         </div>
                     </div>
 
-                                        <!-- Spesialisasi Mengajar -->
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
                         <div class="flex items-center mb-6">
                             <div
@@ -140,8 +134,6 @@
                         </div>
                     </div>
 
-
-                    <!-- Dokumen & Actions -->
                     <div
                         class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 hover:shadow-2xl transition-shadow duration-300">
                         <div class="flex items-center mb-6">

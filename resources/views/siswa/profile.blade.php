@@ -3,9 +3,9 @@
 @section('title', 'Profil Siswa')
 
 @section('content')
-    <div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8">
+    <div class="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-50 py-8">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header Section -->
+
             <div class="mb-8">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div>
@@ -16,7 +16,6 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Profile Card -->
                 <div class="lg:col-span-1">
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden text-center p-6">
                         <div class="flex justify-center mb-4">
@@ -39,9 +38,7 @@
                     </div>
                 </div>
 
-                <!-- Main Content -->
                 <div class="lg:col-span-2 space-y-6">
-                    <!-- Informasi Pribadi -->
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
                         <div class="flex items-center mb-6">
                             <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-teal-600 rounded-xl flex items-center justify-center mr-4">
@@ -95,7 +92,6 @@
                         </div>
                     </div>
 
-                    <!-- Informasi Akademik -->
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
                         <div class="flex items-center mb-6">
                             <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4">
@@ -106,7 +102,6 @@
                             <h3 class="text-xl font-bold text-gray-900">Informasi Akademik</h3>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <!-- Kolom Jenjang -->
                             <div class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-4 border">
                                 <div class="flex items-center mb-2">
                                     <div class="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center mr-3">
@@ -127,7 +122,6 @@
                                 </p>
                             </div>
 
-                            <!-- Kolom Kelas -->
                             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border">
                                 <div class="flex items-center mb-2">
                                     <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
@@ -142,7 +136,6 @@
                                 </p>
                             </div>
 
-                            <!-- Kolom Asal Sekolah -->
                             <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 border">
                                 <div class="flex items-center mb-2">
                                     <div class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center mr-3">
@@ -157,7 +150,6 @@
                         </div>
                     </div>
 
-                    <!-- Tombol Edit -->
                     <a href="{{ route('siswa.profile.edit') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition duration-200 shadow hover:shadow-md">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>

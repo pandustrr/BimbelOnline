@@ -3,118 +3,203 @@
 @section('title', 'Detail Guru')
 
 @section('content')
-<div class="container mx-auto py-8">
-    <div class="bg-white rounded-xl shadow-md p-6">
+    <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            {{-- Header Guru --}}
+            <div class="bg-gradient-to-r from-indigo-50 to-blue-50 p-6 md:p-8">
+                <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+                    <div class="md:w-1/4 flex-shrink-0">
+                        <img src="{{ $guru->foto_url }}" alt="{{ $guru->nama_guru }}"
+                            class="w-full h-auto rounded-xl border-2 border-white shadow-md object-cover">
+                    </div>
+                    <div class="md:w-3/4 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">{{ $guru->nama_guru }}</h1>
+                            <span
+                                class="inline-flex bg-green-100 text-green-600 items-center px-3 py-1 rounded-full text-sm font-medium">
+                                {{ $guru->status_text }}
+                                </span>
+                        </div>
 
-        {{-- Header Guru --}}
-        <div class="flex flex-col md:flex-row gap-6 mb-8">
-            <div class="md:w-1/4">
-                <img src="{{ $guru->foto_url }}" alt="{{ $guru->nama_guru }}"
-                     class="w-full rounded-lg border border-gray-200 shadow">
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                                {{ $guru->jenjang_text }}
+                            </span>
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                {{ $guru->mata_pelajaran }}
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+                            <div class="bg-white p-3 rounded-lg shadow-sm">
+                                <h3 class="font-semibold text-gray-600 mb-1">Riwayat Pendidikan</h3>
+                                <p class="text-gray-800">{{ $guru->riwayat_pendidikan }}</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg shadow-sm">
+                                <h3 class="font-semibold text-gray-600 mb-1">Pengalaman Mengajar</h3>
+                                <p class="text-gray-800">{{ $guru->pengalaman ?? 'Tersedia informasi pengalaman' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="md:w-3/4">
-                <h1 class="text-2xl font-bold text-gray-800 mb-2">{{ $guru->nama_guru }}</h1>
-                <div class="mb-4">
-                    <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-1 rounded">
-                        {{ $guru->jenjang_text }}
-                    </span>
+
+            <div class="p-6 md:p-8 border-b border-gray-100">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">Jadwal Tersedia</h2>
+                    <span class="text-sm text-gray-500">{{ $guru->jadwalTersedia->count() }} jadwal tersedia</span>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-                    <div>
-                        <h3 class="font-semibold">Mata Pelajaran</h3>
-                        <p>{{ $guru->mata_pelajaran }}</p>
+                @if ($guru->jadwalTersedia->count() > 0)
+                    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Hari</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Jam</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Kelas</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Kuota</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach ($guru->jadwalTersedia as $jadwal)
+                                    <tr class="hover:bg-gray-50 transition-colors duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            {{ $jadwal->hari }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} -
+                                            {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $jadwal->kelas }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-blue-800">
+                                                {{ $jadwal->terdaftar }}/{{ $jadwal->kuota }}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <form action="{{ route('siswa.pendaftaran.daftar', $jadwal->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+                                                    <svg class="-ml-0.5 mr-1.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                    Daftar
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    <div>
-                        <h3 class="font-semibold">Riwayat Pendidikan</h3>
-                        <p>{{ $guru->riwayat_pendidikan }}</p>
+                @else
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-md">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-blue-700">
+                                    Tidak ada jadwal tersedia saat ini. Silakan cek kembali nanti.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="font-semibold">Status</h3>
-                        <span class="inline-block bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
-                            {{ $guru->status_text }}
-                        </span>
-                    </div>
-                </div>
+                @endif
             </div>
-        </div>
 
-        {{-- Jadwal Tersedia --}}
-        <div class="mb-10">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Jadwal Tersedia</h2>
-            @if($guru->jadwalTersedia->count() > 0)
-                <div class="overflow-x-auto rounded-lg border border-gray-200">
-                    <table class="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left font-medium text-gray-600 uppercase tracking-wider">Hari</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-600 uppercase tracking-wider">Jam</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-600 uppercase tracking-wider">Kelas</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-600 uppercase tracking-wider">Kuota</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-600 uppercase tracking-wider">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-100">
-                            @foreach($guru->jadwalTersedia as $jadwal)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->hari }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->kelas }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->terdaftar }}/{{ $jadwal->kuota }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <form action="{{ route('siswa.pendaftaran.daftar', $jadwal->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="inline-flex items-center bg-green-600 text-white text-xs font-medium px-3 py-1 rounded hover:bg-green-700 transition">
-                                            <i class="fas fa-plus-circle mr-1"></i> Daftar
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="p-6 md:p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">Jadwal Penuh</h2>
+                    <span class="text-sm text-gray-500">{{ $guru->jadwalPenuh->count() }} jadwal penuh</span>
                 </div>
-            @else
-                <div class="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded mt-2">
-                    Tidak ada jadwal tersedia saat ini.
-                </div>
-            @endif
-        </div>
 
-        {{-- Jadwal Penuh --}}
-        <div>
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Jadwal Penuh</h2>
-            @if($guru->jadwalPenuh->count() > 0)
-                <div class="overflow-x-auto rounded-lg border border-gray-200">
-                    <table class="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left font-medium text-gray-600 uppercase tracking-wider">Hari</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-600 uppercase tracking-wider">Jam</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-600 uppercase tracking-wider">Kelas</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-600 uppercase tracking-wider">Kuota</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-100">
-                            @foreach($guru->jadwalPenuh as $jadwal)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->hari }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $jadwal->kelas }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-red-600 font-semibold">
-                                    {{ $jadwal->terdaftar }}/{{ $jadwal->kuota }} (Penuh)
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded mt-2">
-                    Semua kelas masih memiliki kuota tersedia.
-                </div>
-            @endif
+                @if ($guru->jadwalPenuh->count() > 0)
+                    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Hari</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Jam</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Kelas</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach ($guru->jadwalPenuh as $jadwal)
+                                    <tr class="hover:bg-gray-50 transition-colors duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            {{ $jadwal->hari }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} -
+                                            {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $jadwal->kelas }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                Penuh ({{ $jadwal->terdaftar }}/{{ $jadwal->kuota }})
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-md">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-green-700">
+                                    Semua kelas masih memiliki kuota tersedia.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
-</div>
 @endsection
