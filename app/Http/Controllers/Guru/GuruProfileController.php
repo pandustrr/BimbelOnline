@@ -69,9 +69,7 @@ class GuruProfileController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Handle upload foto baru jika ada
         if ($request->hasFile('foto')) {
-            // Hapus foto lama jika ada
             if ($guru->foto && Storage::exists($guru->foto)) {
                 Storage::delete($guru->foto);
             }
